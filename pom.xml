@@ -160,7 +160,7 @@
     <repository>
       <id>maven-releases</id>
       <name>maven-releases</name>
-      <url>http://13.232.142.103:8081/repository/maven-releases/</url>
+      <url>http://15.206.79.16:8081//repository/maven-releases/</url>
     </repository>
     <snapshotRepository>
       <id>maven-snapshots</id>
