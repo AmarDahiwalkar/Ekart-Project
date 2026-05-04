@@ -30,16 +30,28 @@ pipeline {
             }
         }
 
+        // stage('SonarQube analysis') {
+        //     steps {
+        //         withSonarQubeEnv('sonar-scanner') {
+        //             sh "${env.SCANNER_HOME}/bin/sonar-scanner \
+        //                 -Dsonar.projectKey=EKART \
+        //                 -Dsonar.projectName=EKART \
+        //                 -Dsonar.java.binaries=target/classes"
+        //         }
+        //     }
+        // }
         stage('SonarQube analysis') {
-            steps {
-                withSonarQubeEnv('sonar-scanner') {
-                    sh "${env.SCANNER_HOME}/bin/sonar-scanner \
-                        -Dsonar.projectKey=EKART \
-                        -Dsonar.projectName=EKART \
-                        -Dsonar.java.binaries=target/classes"
-                }
+    steps {
+        withEnv(["JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64"]) {
+            withSonarQubeEnv('sonar-scanner') {
+                sh '''mvn sonar:sonar \
+                    -Dsonar.projectKey=EKART \
+                    -Dsonar.projectName=EKART \
+                    -Dsonar.java.binaries=target/classes'''
             }
         }
+    }
+}
 
         stage('OWASP Dependency Check') {
             steps {
